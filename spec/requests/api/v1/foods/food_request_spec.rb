@@ -46,4 +46,12 @@ describe 'Foods API' do
     expect(food['name']).to eq(food1.name)
     expect(food['calories']).to eq(food1.calories)
   end
+
+  it 'returns a 404 if that specific food is not found' do
+    id = 100000
+
+    get "/api/v1/foods/#{id}"
+
+    expect(response.status).to eq(404)
+  end
 end
