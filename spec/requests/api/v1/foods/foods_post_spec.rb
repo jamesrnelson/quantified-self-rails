@@ -2,10 +2,10 @@ require 'rails_helper'
 
 describe 'post request to /api/v1/foods' do
   it 'should be able to post' do
-    food1 = Food.new(name: 'Milkshake', calories: 875)
+    food1 = Food.create(name: 'Milkshake', calories: 875)
 
     expected = {
-      'id': 1,
+      'id': food1.id + 1,
       'name': food1.name,
       'calories': food1.calories
     }
