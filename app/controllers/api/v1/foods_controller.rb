@@ -10,4 +10,8 @@ class Api::V1::FoodsController < ApplicationController
       render status: 404
     end
   end
+
+  def create
+    
+  end
 end
