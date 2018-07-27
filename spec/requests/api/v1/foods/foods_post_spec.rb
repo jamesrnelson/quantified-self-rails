@@ -13,9 +13,7 @@ describe 'post request to /api/v1/foods' do
     post "/api/v1/foods?name=#{food1.name}&calories=#{food1.calories}"
 
     expect(response).to be_success
-
     new_food = JSON.parse(response.body, symbolize_names: true)
-
     expect(new_food).to eq(expected)
   end
 end
