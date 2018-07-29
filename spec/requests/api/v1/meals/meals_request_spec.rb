@@ -79,6 +79,11 @@ describe 'get request to /api/v1/meals' do
         "name": meal3.name,
         "foods": [
           {
+            "id": food3.id,
+            "name": food3.name,
+            "calories": food3.calories
+          },
+          {
             "id": food6.id,
             "name": food6.name,
             "calories": food6.calories
@@ -87,11 +92,6 @@ describe 'get request to /api/v1/meals' do
             "id": food7.id,
             "name": food7.name,
             "calories": food7.calories
-          },
-          {
-            "id": food3.id,
-            "name": food3.name,
-            "calories": food3.calories
           }
         ]
       },

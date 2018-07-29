@@ -1,11 +1,5 @@
 class MealSerializer < ActiveModel::Serializer
-  attributes :id, :name, :foods
+  attributes :id, :name
 
-  def foods
-    {
-      'id': food.id,
-      'name': food.name,
-      'calories': food.calories
-    }
-  end
+  has_many :foods
 end
