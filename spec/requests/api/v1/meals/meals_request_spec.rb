@@ -118,6 +118,8 @@ describe 'get request to /api/v1/meals' do
       }
     ]
 
+    get '/api/v1/meals'
+
     expect(response).to be_success
 
     meals = JSON.parse(response.body, symbolize_names: true)
