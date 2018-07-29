@@ -127,3 +127,56 @@ describe 'get request to /api/v1/meals' do
     expect(meals).to eq(expected)
   end
 end
+
+describe 'get request to /api/v1/meals/:id/foods' do
+  it 'should return the meal with the requested id' do
+    meal1 = Meal.create(name: 'Breakfast')
+
+    food1 = Food.create(name: 'Banana', calories: 150)
+    food2 = Food.create(name: 'Yogurt', calories: 550)
+    food3 = Food.create(name: 'Apple', calories: 220)
+
+    MealFood.create(meal_id: meal1.id, food_id: food1.id)
+    MealFood.create(meal_id: meal1.id, food_id: food2.id)
+    MealFood.create(meal_id: meal1.id, food_id: food3.id)
+
+    expected = {
+      "id": meal1.id,
+      "name": meal1.name,
+      "foods": [
+        {
+          "id": food1.id,
+          "name": food1.name,
+          "calories": food1.calories
+        },
+        {
+          "id": food2.id,
+          "name": food2.name,
+          "calories": food2.calories
+        },
+        {
+          "id": food3.id,
+          "name": food3.name,
+          "calories": food3.calories
+        }
+      ]
+    }
+
+    get "/api/v1/meals/#{meal1.id}/foods"
+
+    expect(response).to be_success
+
+    meal = JSON.parse(response.body, symbolize_names: true)
+    expect(meal).to eq(expected)
+  end
+end
+
+describe 'failed get request to /api/v1/meals/:id/foods' do
+  it 'should send a 404' do
+    nonexistent_meal = 1000000
+
+    get "/api/v1/meals/#{nonexistent_meal}/foods"
+
+    expect(response.status).to eq(404)
+  end
+end
