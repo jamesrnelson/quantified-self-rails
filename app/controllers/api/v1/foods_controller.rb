@@ -34,6 +34,14 @@ class Api::V1::FoodsController < ApplicationController
     end
   end
 
+  def destroy
+    if Food.exists?(params[:id])
+      Food.find(params[:id]).destroy
+    else
+      render status: 404
+    end
+  end
+
   private
 
     def food_params
