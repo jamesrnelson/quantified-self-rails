@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get '/meals', to: 'meals#index'
       get '/meals/:id/foods', to: 'meals#show'
       post '/meals/:meal_id/foods/:id', to: 'meal_foods#create'
+      delete '/meals/:meal_id/foods/:id', to: 'meal_foods#destroy'
     end
   end
 end

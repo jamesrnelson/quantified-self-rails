@@ -34,7 +34,7 @@ describe 'post /api/v1/meals/:meal_id/foods/:id' do
 end
 
 describe 'failed post to meal foods api' do
-  it 'should return a 404 if meal id is not found' do
+  it 'should return a 404 if food id is not found' do
     meal1 = Meal.create(name: 'Breakfast')
     food1 = Food.create(name: 'Banana', calories: 150)
     nonexistent_id = 1000000
@@ -44,7 +44,7 @@ describe 'failed post to meal foods api' do
     expect(response.status).to eq(404)
   end
 
-  it 'should return a 404 if food id is not found' do
+  it 'should return a 404 if meal id is not found' do
     meal1 = Meal.create(name: 'Breakfast')
     food1 = Food.create(name: 'Banana', calories: 150)
     nonexistent_id = 1000000
