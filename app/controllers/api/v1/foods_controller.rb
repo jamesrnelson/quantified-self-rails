@@ -23,7 +23,7 @@ class Api::V1::FoodsController < ApplicationController
   def update
     if Food.exists?(params[:id])
       food = Food.find(params[:id])
-      if params[:name] && params[:calories]
+      if params[:food][:name] && params[:food][:calories]
         food.update(food_params)
         render json: food
       else
@@ -45,6 +45,6 @@ class Api::V1::FoodsController < ApplicationController
   private
 
     def food_params
-      params.permit(:name, :calories)
+      params.require(:food).permit(:name, :calories)
     end
 end

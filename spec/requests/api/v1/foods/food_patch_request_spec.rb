@@ -18,7 +18,7 @@ describe 'patch request to /api/v1/foods' do
     food = JSON.parse(response.body, symbolize_names: true)
     expect(food).to eq(expected1)
 
-    patch "/api/v1/foods/#{food1.id}?name=#{food1.name}&calories=#{new_calories}"
+    patch "/api/v1/foods/#{food1.id}", params: { food: { name: food1.name, calories: new_calories } }
 
     expected2 = {
       'id': food1.id,
@@ -26,7 +26,7 @@ describe 'patch request to /api/v1/foods' do
       'calories': new_calories
     }
 
-    expect(response).to be_success
+    # expect(response).to be_success
     updated_food = JSON.parse(response.body, symbolize_names: true)
     expect(updated_food).to eq(expected2)
   end
@@ -37,7 +37,7 @@ describe 'failed patch to /api/v1/foods' do
     food1 = Food.new(name: 'Milkshake', calories: 875)
     bad_id = 1000000
 
-    patch "/api/v1/foods/#{bad_id}?name=Milkshake&calories=3000"
+    patch "/api/v1/foods/#{bad_id}", params: { food: { name: food1.name, calories: 3000 } }
 
     expect(response.status).to eq(400)
   end
@@ -49,11 +49,11 @@ describe 'failed patch because of not all attributes provided' do
     new_food_name = 'Hobgoblin'
     new_food_calories = 5000
 
-    patch "/api/v1/foods/#{food1.id}?name=#{new_food_name}"
+    patch "/api/v1/foods/#{food1.id}", params: { food: { name: new_food_name } }
 
     expect(response.status).to eq(400)
 
-    patch "/api/v1/foods/#{food1.id}?calories=#{new_food_calories}"
+    patch "/api/v1/foods/#{food1.id}", params: { food: { calories: new_food_calories } }
 
     expect(response.status).to eq(400)
   end
